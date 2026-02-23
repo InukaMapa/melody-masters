@@ -58,8 +58,6 @@ session_start();
 <nav class="main-nav">
     <a href="index.php">HOME</a>
     <a href="shop.php">SHOP</a>
-    <a href="#">BRANDS</a>
-    <a href="#">DEALS</a>
     <a href="#">ABOUT US</a>
     <a href="#">CONTACT</a>
 </nav>

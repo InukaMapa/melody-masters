@@ -1,201 +1,455 @@
-/* Reset */
+/* RESET */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Body */
 body {
     font-family: 'Segoe UI', sans-serif;
-    background: #f4f6f9;
+    background: #f4f5f7;
     color: #333;
 }
 
-/* Header */
-header {
-    background: linear-gradient(90deg, #111, #222);
-    color: white;
-    padding: 20px 40px;
+/* ================= HEADER ================= */
+
+.main-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 15px 60px;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-header h1 {
+.logo {
     font-size: 22px;
+    font-weight: 700;
+    color: #e11d48;
 }
 
-nav a {
-    color: white;
-    margin-left: 20px;
-    text-decoration: none;
-    font-weight: 500;
+/* MODERN SEARCH BAR */
+.search-bar {
+    position: relative;
+    width: 500px;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 12px 15px 12px 45px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background: #f3f4f6;
+    font-size: 15px;
+    outline: none;
     transition: 0.3s ease;
 }
 
-nav a:hover {
-    color: #00d4ff;
+.search-bar input:focus {
+    background: #ffffff;
+    border-color: #e11d48;
+    box-shadow: 0 0 0 3px rgba(225,29,72,0.1);
 }
 
-/* Page Container */
-.container {
-    width: 400px;
-    margin: 60px auto;
+.search-icon {
+    position: absolute;
+    left: 10px;
+    top: 35%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #888;
+}
+
+.header-right {
+    display: flex;
+    gap: 25px;
+    font-weight: 500;
+}
+
+/* ================= NAVIGATION ================= */
+
+.main-nav {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 12px;
+    background: #ffffff;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.main-nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    position: relative;
+}
+
+.main-nav a:hover {
+    color: #e11d48;
+}
+
+/* ================= HERO BANNER ================= */
+
+.hero {
+    height: 500px;
+    background: url('../images/banner.jpg') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    padding-left: 80px;
+    color: white;
+}
+
+.hero h1 {
+    font-size: 50px;
+    font-weight: 700;
+}
+
+.hero button {
+    margin-top: 20px;
+    padding: 12px 25px;
+    background: #e11d48;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* ================= CATEGORY CIRCLES ================= */
+
+.categories {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 50px 0;
     background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
-/* Form Styling */
-.container h2 {
-    margin-bottom: 20px;
+.category-item {
     text-align: center;
 }
 
-label {
+.category-item img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: 0.3s;
+}
+
+.category-item img:hover {
+    transform: scale(1.1);
+}
+
+.category-item p {
+    margin-top: 10px;
     font-weight: 500;
-    font-size: 14px;
+}
+
+/* ================= PRODUCT GRID ================= */
+
+.products {
+    padding: 60px;
+}
+
+.products h2 {
+    margin-bottom: 30px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+.product-card {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+}
+
+.product-card h4 {
+    font-size: 15px;
+    margin: 10px 0;
+}
+
+.product-card p {
+    font-weight: 600;
+    color: #e11d48;
+}
+
+/* ================= REGISTER FORM ================= */
+
+.container {
+    width: 420px;
+    margin: 80px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.container h2 {
+    text-align: center;
+    margin-bottom: 25px;
 }
 
 input {
     width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
+    padding: 12px;
+    margin-bottom: 18px;
+    border: 1px solid #ddd;
     border-radius: 6px;
-    transition: 0.3s;
 }
 
 input:focus {
-    border-color: #00d4ff;
+    border-color: #e11d48;
     outline: none;
-    box-shadow: 0 0 5px rgba(0, 212, 255, 0.3);
 }
 
-/* Button */
 button {
     width: 100%;
-    padding: 10px;
-    background: #111;
-    color: white;
+    padding: 12px;
     border: none;
+    background: #e11d48;
+    color: white;
     border-radius: 6px;
     cursor: pointer;
-    transition: 0.3s;
-    font-weight: bold;
 }
 
 button:hover {
-    background: #00d4ff;
-    color: #111;
+    background: #be123c;
 }
 
-/* Success Message */
-.success {
-    background: #d4edda;
-    color: #155724;
-    padding: 10px;
-    border-radius: 6px;
-    margin-bottom: 15px;
-    font-size: 14px;
-}
+/* ================= FOOTER ================= */
 
-/* Footer */
 footer {
-    margin-top: 80px;
-    text-align: center;
-    padding: 20px;
     background: #111;
     color: white;
-    font-size: 14px;
+    padding: 40px 60px;
+    margin-top: 60px;
 }
-/* HERO SECTION */
+/* HERO */
 .hero {
-    height: 85vh;
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-                url('https://images.unsplash.com/photo-1511379938547-c1f69419868d');
-    background-size: cover;
-    background-position: center;
+    height: 500px;
+    background: url('../images/banner.jpg') center/cover no-repeat;
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
+    padding-left: 80px;
     color: white;
 }
 
 .hero-content h1 {
-    font-size: 48px;
-    margin-bottom: 20px;
+    font-size: 50px;
+    margin-bottom: 15px;
 }
 
-.hero-content p {
-    font-size: 18px;
-    margin-bottom: 30px;
-}
-
-.hero-buttons a {
-    text-decoration: none;
+.hero button {
     padding: 12px 25px;
-    border-radius: 6px;
-    margin: 0 10px;
-    font-weight: bold;
-    transition: 0.3s ease;
-}
-
-.btn-primary {
-    background: #00d4ff;
-    color: #111;
-}
-
-.btn-primary:hover {
-    background: white;
-}
-
-.btn-secondary {
-    background: transparent;
-    border: 2px solid white;
+    background: #e11d48;
+    border: none;
     color: white;
+    cursor: pointer;
 }
 
-.btn-secondary:hover {
+/* CATEGORIES */
+.categories {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    padding: 60px 0;
     background: white;
-    color: #111;
 }
 
-/* FEATURES SECTION */
-.features {
-    padding: 60px 40px;
+.category-item {
     text-align: center;
 }
 
-.features h2 {
-    margin-bottom: 40px;
-    font-size: 28px;
-}
-
-.feature-grid {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-}
-
-.feature-card {
-    background: white;
-    padding: 25px;
-    width: 280px;
-    border-radius: 10px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+.category-item img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
     transition: 0.3s;
 }
 
-.feature-card:hover {
-    transform: translateY(-8px);
+.category-item img:hover {
+    transform: scale(1.1);
 }
 
-.feature-card h3 {
+/* PRODUCTS */
+.products {
+    padding: 60px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+.product-card {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+}
+/* HEADER BUTTONS */
+.header-btn {
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid #ddd;
+    color: #333;
+    transition: 0.3s ease;
+}
+
+.header-btn:hover {
+    background: #f3f4f6;
+}
+
+.register-btn {
+    background: #e11d48;
+    color: white;
+    border: none;
+}
+
+.register-btn:hover {
+    background: #be123c;
+}
+
+.logout-btn {
+    background: #111;
+    color: white;
+    border: none;
+}
+
+.logout-btn:hover {
+    background: #333;
+}
+/* REGISTER FULL PAGE */
+.register-page {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* LEFT IMAGE SIDE */
+.register-left {
+    flex: 1;
+    background: url('../images/register-bg.jpg') center/cover no-repeat;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.register-left::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+}
+
+.overlay-text {
+    position: relative;
+    color: white;
+    text-align: center;
+    padding: 40px;
+}
+
+.overlay-text h1 {
+    font-size: 40px;
     margin-bottom: 15px;
+}
+
+/* RIGHT FORM SIDE */
+.register-right {
+    flex: 1;
+    background: #f9fafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.register-card {
+    width: 420px;
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+}
+
+.register-card h2 {
+    margin-bottom: 10px;
+}
+
+.sub-text {
+    font-size: 14px;
+    margin-bottom: 25px;
+    color: #666;
+}
+
+.register-card input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 18px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+.register-card input:focus {
+    border-color: #e11d48;
+    outline: none;
+}
+
+.register-card button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background: #e11d48;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.register-card button:hover {
+    background: #be123c;
+}
+
+.login-link {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.login-link a {
+    color: #e11d48;
+    text-decoration: none;
+    font-weight: 500;
 }

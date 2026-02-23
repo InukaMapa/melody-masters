@@ -9,21 +9,57 @@ session_start();
 </head>
 <body>
 
-<header>
-    <h1>🎵 Melody Masters</h1>
-    <nav>
-        <a href="/melody-masters/index.php">Home</a>
-        <a href="/melody-masters/shop.php">Shop</a>
-        <a href="/melody-masters/cart.php">Cart</a>
+<header class="main-header">
+    <div class="logo">
+        <h2>🎵 Melody Masters</h2>
+    </div>
 
-        <?php if(isset($_SESSION['user_id'])): ?>
-            <a href="/melody-masters/account.php">My Account</a>
-            <a href="/melody-masters/logout.php">Logout</a>
-        <?php else: ?>
-            <a href="/melody-masters/login.php">Login</a>
-            <a href="/melody-masters/register.php">Register</a>
-        <?php endif; ?>
-    </nav>
+    <div class="search-bar">
+    <span class="search-icon">🔍</span>
+    <input type="text" placeholder="Search for products, brands and more...">
+</div>
+
+    <div class="header-right">
+        <div class="header-right">
+
+    <?php if(isset($_SESSION['user_id'])): ?>
+        
+        <a href="account.php" class="header-btn">
+            <i class="fa fa-user"></i> My Account
+        </a>
+
+        <a href="logout.php" class="header-btn logout-btn">
+            Logout
+        </a>
+
+    <?php else: ?>
+
+        <a href="login.php" class="header-btn">
+            Login
+        </a>
+
+        <a href="register.php" class="header-btn register-btn">
+            Register
+        </a>
+
+    <?php endif; ?>
+
+</div>
+        <div class="phone">
+            📞 011 2595608
+        </div>
+
+        <div class="cart">
+            🛒 Cart (0)
+        </div>
+    </div>
 </header>
 
-<hr>
+<nav class="main-nav">
+    <a href="index.php">HOME</a>
+    <a href="shop.php">SHOP</a>
+    <a href="#">BRANDS</a>
+    <a href="#">DEALS</a>
+    <a href="#">ABOUT US</a>
+    <a href="#">CONTACT</a>
+</nav>

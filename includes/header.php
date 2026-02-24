@@ -1,11 +1,14 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Melody Masters</title>
     <link rel="stylesheet" href="/melody-masters/assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
@@ -49,9 +52,22 @@ session_start();
             📞 011 2595608
         </div>
 
-        <div class="cart">
-            🛒 Cart (0)
-        </div>
+       <a href="cart.php" class="cart-link">
+    <i class="fa fa-shopping-cart"></i>
+
+    <?php
+    $count = 0;
+    if (isset($_SESSION['cart'])) {
+        foreach ($_SESSION['cart'] as $item) {
+            $count += $item['quantity'];
+        }
+    }
+    ?>
+
+    <?php if ($count > 0): ?>
+        <span class="cart-count"><?php echo $count; ?></span>
+    <?php endif; ?>
+</a>
     </div>
 </header>
 

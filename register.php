@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-            $stmt = $conn->prepare("INSERT INTO users (full_name, email, password) VALUES (?, ?, ?)");
+            $stmt = $conn->prepare("INSERT INTO users (full_name, email, password, role) VALUES (?, ?, ?, 'customer')");
             $stmt->bind_param("sss", $full_name, $email, $hashed_password);
 
             if ($stmt->execute()) {
@@ -72,18 +72,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             <?php endif; ?>
 
-            <form method="POST" action="">
+            <form method="POST" action="" autocomplete="off">
                 <label>Full Name</label>
-                <input type="text" name="full_name" required>
+                <input type="text" name="full_name" autocomplete="off" required>
 
                 <label>Email Address</label>
-                <input type="email" name="email" required>
+                <input type="email" name="email" autocomplete="off" required>
 
                 <label>Password</label>
-                <input type="password" name="password" required>
+                <input type="password" name="password" autocomplete="new-password" required>
 
                 <label>Confirm Password</label>
-                <input type="password" name="confirm_password" required>
+                <input type="password" name="confirm_password" autocomplete="new-password" required>
 
                 <button type="submit">Create Account</button>
             </form>

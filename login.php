@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once "config/db.php";
 include "includes/header.php";
 
@@ -26,13 +27,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if (password_verify($password, $user['password'])) {
 
-                // Store session
+                // Store session variables
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_name'] = $user['full_name'];
                 $_SESSION['user_role'] = $user['role'];
 
-                // Redirect
-                header("Location: index.php");
+                // 🔥 Role-based redirect
+                if ($user['role'] === 'admin') {
+                    header("Location: admin/dashboard.php");
+                } else {
+                    header("Location: index.php");
+                }
                 exit();
 
             } else {
@@ -54,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div class="register-left">
         <div class="overlay-text">
-            <h1>Welcome Back 🎵</h1>
+            <h1>Welcome Back </h1>
             <p>Login to continue your musical journey.</p>
         </div>
     </div>
@@ -71,16 +76,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <form method="POST" action="">
                 <label>Email Address</label>
-                <input type="email" name="email" required>
+                <input type="email" name="email" autocomplete="off" required>
 
                 <label>Password</label>
-                <input type="password" name="password" required>
+                <input type="password" name="password" autocomplete="off" required>
 
                 <button type="submit">Login</button>
             </form>
 
             <p class="login-link">
-                Don’t have an account? <a href="register.php">Register</a>
+                Don't have an account? <a href="register.php">Register</a>
             </p>
         </div>
     </div>

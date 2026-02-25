@@ -1,5 +1,4 @@
 <?php
-require_once "config/db.php";
-
-echo "Database connected successfully!";
+$_GET['category'] = 'Guitar';
+require 'c:\Xampp\htdocs\melody-masters\shop.php';
 ?>

@@ -32,14 +32,25 @@ if ($subtotal <= 100) {
 
 $total = $subtotal + $shipping;
 
+// Get form data
+$full_name = $_POST['full_name'] ?? '';
+$email = $_POST['email'] ?? '';
+$phone = $_POST['phone'] ?? '';
+$address_line_1 = $_POST['address_line_1'] ?? '';
+$city = $_POST['city'] ?? '';
+$postcode = $_POST['postcode'] ?? '';
+$country = $_POST['country'] ?? '';
+$order_note = $_POST['order_note'] ?? '';
+$payment_method = $_POST['payment_method'] ?? '';
+
 // 🔥 Start transaction (very important)
 $conn->begin_transaction();
 
 try {
 
     // 1️⃣ Insert into orders table
-    $stmt = $conn->prepare("INSERT INTO orders (user_id, total_amount, created_at) VALUES (?, ?, NOW())");
-    $stmt->bind_param("id", $user_id, $total);
+    $stmt = $conn->prepare("INSERT INTO orders (user_id, full_name, email, phone, address_line_1, city, postcode, country, order_note, payment_method, total_amount, shipping_cost, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())");
+    $stmt->bind_param("isssssssssdd", $user_id, $full_name, $email, $phone, $address_line_1, $city, $postcode, $country, $order_note, $payment_method, $total, $shipping);
     $stmt->execute();
     $order_id = $stmt->insert_id;
     $stmt->close();
@@ -70,7 +81,7 @@ try {
     unset($_SESSION['cart']);
 
     // Redirect to success page
-    header("Location: my_orders.php?success=1");
+    header("Location: order_success.php?id=" . $order_id);
     exit();
 
 } catch (Exception $e) {

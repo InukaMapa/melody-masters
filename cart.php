@@ -30,9 +30,9 @@ include "includes/header.php";
 
                     <tr>
                         <td><?php echo htmlspecialchars($item['name']); ?></td>
-                        <td>$<?php echo number_format($item['price'], 2); ?></td>
+                        <td> £ <?php echo number_format($item['price'], 2); ?></td>
                         <td><?php echo $item['quantity']; ?></td>
-                        <td>$<?php echo number_format($total, 2); ?></td>
+                        <td> £ <?php echo number_format($total, 2); ?></td>
                         <td>
                             <a href="remove_from_cart.php?id=<?php echo $id; ?>" class="remove-btn">
                                 Remove
@@ -47,7 +47,7 @@ include "includes/header.php";
         </div>
 
         <div class="cart-total">
-            <h3>Grand Total: $<?php echo number_format($grand_total, 2); ?></h3>
+            <h3>Grand Total: £ <?php echo number_format($grand_total, 2); ?></h3>
             <div style="margin-top:20px; text-align:right;">
     <a href="checkout.php" class="continue-btn">
         Proceed to Checkout

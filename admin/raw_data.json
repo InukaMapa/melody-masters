@@ -1,0 +1,62 @@
+{
+    "users": [
+        {
+            "id": "3",
+            "full_name": "inuka mapa",
+            "email": "inuka123@gmail.com",
+            "password": "$2y$10$S\/Ok\/MfhKHeXMqopDF1RhelDl.3725\/XJ2ufvZotklfsGC35vdDNK",
+            "phone": null,
+            "address": null,
+            "role": "customer",
+            "created_at": "2026-02-24 09:01:10"
+        },
+        {
+            "id": "4",
+            "full_name": "New Admin",
+            "email": "newadmin@gmail.com",
+            "password": "$2y$10$2FTjDWqIK3k9PGTcsCNmtOccDoV5gZ6.Np6Ic9pd7jKd5XE9tqX6.",
+            "phone": null,
+            "address": null,
+            "role": "admin",
+            "created_at": "2026-02-24 09:08:22"
+        }
+    ],
+    "orders": [
+        {
+            "id": "15",
+            "user_id": "4",
+            "full_name": "Inuka Mapa",
+            "email": "inukashan123@gmail.com",
+            "phone": "0761702500",
+            "address_line_1": "dfdv",
+            "city": "aknmd",
+            "postcode": "5120",
+            "country": "LK",
+            "order_note": "immediatly",
+            "payment_method": "Bank",
+            "total_amount": "1200.00",
+            "shipping_cost": "0.00",
+            "status": "completed",
+            "shipping_address": "",
+            "created_at": "2026-02-25 01:45:01"
+        },
+        {
+            "id": "16",
+            "user_id": "4",
+            "full_name": "Inuka Mapa",
+            "email": "inukashan123@gmail.com",
+            "phone": "0761702500",
+            "address_line_1": "dfdv",
+            "city": "aknmd",
+            "postcode": "5120",
+            "country": "LK",
+            "order_note": "",
+            "payment_method": "Bank",
+            "total_amount": "750.00",
+            "shipping_cost": "0.00",
+            "status": "Pending",
+            "shipping_address": "",
+            "created_at": "2026-02-25 01:49:53"
+        }
+    ]
+}

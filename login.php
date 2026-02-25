@@ -30,15 +30,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Store session variables
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_name'] = $user['full_name'];
+                $_SESSION['user_email'] = $email;
                 $_SESSION['user_role'] = $user['role'];
 
                 // 🔥 Role-based redirect
                 if ($user['role'] === 'admin') {
                     header("Location: admin/dashboard.php");
+                    exit();
                 } else {
                     header("Location: index.php");
+                    exit();
                 }
-                exit();
 
             } else {
                 $message = "Invalid password.";

@@ -4,12 +4,24 @@ require_once "includes/header.php";
 $message = "";
 $message_type = "";
 
+// Self-Healing: Check if icon_class and image_path columns exist
+$check_col = $conn->query("SHOW COLUMNS FROM categories LIKE 'icon_class'");
+if ($check_col->num_rows == 0) {
+    $conn->query("ALTER TABLE categories ADD COLUMN icon_class VARCHAR(50) DEFAULT 'fa-music' AFTER name");
+}
+$check_img = $conn->query("SHOW COLUMNS FROM categories LIKE 'image_path'");
+if ($check_img->num_rows == 0) {
+    $conn->query("ALTER TABLE categories ADD COLUMN image_path VARCHAR(255) DEFAULT NULL AFTER icon_class");
+}
+
 // Handle Category Addition
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_category'])) {
     $name = trim($_POST['name']);
     if(!empty($name)) {
-        $stmt = $conn->prepare("INSERT INTO categories (name) VALUES (?)");
-        $stmt->bind_param("s", $name);
+        $icon = trim($_POST['icon_class']);
+        $img = trim($_POST['image_path']);
+        $stmt = $conn->prepare("INSERT INTO categories (name, icon_class, image_path) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $name, $icon, $img);
         if ($stmt->execute()) {
             $message = "Category '$name' added successfully!";
             $message_type = "success";
@@ -25,9 +37,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_category'])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_category'])) {
     $id = intval($_POST['cat_id']);
     $name = trim($_POST['name']);
+    $icon = trim($_POST['icon_class']);
+    $img = trim($_POST['image_path']);
     if(!empty($name)) {
-        $stmt = $conn->prepare("UPDATE categories SET name = ? WHERE id = ?");
-        $stmt->bind_param("si", $name, $id);
+        $stmt = $conn->prepare("UPDATE categories SET name = ?, icon_class = ?, image_path = ? WHERE id = ?");
+        $stmt->bind_param("sssi", $name, $icon, $img, $id);
         if ($stmt->execute()) {
             $message = "Category updated successfully!";
             $message_type = "success";
@@ -96,8 +110,19 @@ $categories = $conn->query("SELECT * FROM categories ORDER BY name ASC");
                 ?>
                 <tr>
                     <td>#<?php echo $row['id']; ?></td>
-                    <td><strong style="font-size:15px;"><?php echo htmlspecialchars($row['name']); ?></strong></td>
-                    <td><span style="color:#666;"><?php echo $prod_count; ?> Products</span></td>
+                    <td>
+                        <div style="display:flex; align-items:center; gap:12px;">
+                        <div style="width:36px; height:36px; background:#f1f5f9; border-radius:8px; overflow:hidden; display:flex; align-items:center; justify-content:center; color:#e11d48; font-size:16px;">
+                            <?php if(!empty($row['image_path'])): ?>
+                                <img src="../<?php echo htmlspecialchars($row['image_path']); ?>" alt="" style="width:100%; height:100%; object-fit:cover;">
+                            <?php else: ?>
+                                <i class="fa <?php echo htmlspecialchars($row['icon_class'] ?: 'fa-music'); ?>"></i>
+                            <?php endif; ?>
+                        </div>
+                            <strong style="font-size:15px; color:#0f172a;"><?php echo htmlspecialchars($row['name']); ?></strong>
+                        </div>
+                    </td>
+                    <td><span style="color:#64748b; font-weight:500;"><?php echo $prod_count; ?> Products</span></td>
                     <td>
                         <div style="display:flex; gap:8px;">
                             <a href="manage_categories.php?edit=<?php echo $row['id']; ?>" class="btn-admin" style="padding: 6px 12px; font-size:12px; background: #e0e7ff; color: #4338ca; border: none;" title="Edit">
@@ -132,6 +157,21 @@ $categories = $conn->query("SELECT * FROM categories ORDER BY name ASC");
             <div class="form-group">
                 <label>Category Name</label>
                 <input type="text" name="name" class="form-control" placeholder="e.g. Electric Guitars" value="<?php echo $edit_cat ? htmlspecialchars($edit_cat['name']) : ''; ?>" required>
+            </div>
+            <div class="form-group">
+                <label>Icon Class (FontAwesome)</label>
+                <div style="display:flex; gap:10px;">
+                    <input type="text" name="icon_class" class="form-control" placeholder="e.g. fa-guitar" value="<?php echo $edit_cat ? htmlspecialchars($edit_cat['icon_class']) : 'fa-music'; ?>" required>
+                    <div id="icon-preview" style="width:45px; height:45px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; color:#e11d48;">
+                        <i class="fa <?php echo $edit_cat ? htmlspecialchars($edit_cat['icon_class']) : 'fa-music'; ?>"></i>
+                    </div>
+                </div>
+                <small style="display:block; margin-top:5px; color:#94a3b8;">Use classes like <code>fa-wind</code>, <code>fa-drum</code>, <code>fa-guitar</code></small>
+            </div>
+            <div class="form-group">
+                <label>Category Image Path (relative to root)</label>
+                <input type="text" name="image_path" class="form-control" placeholder="e.g. assets/images/wind_category.jpg" value="<?php echo $edit_cat ? htmlspecialchars($edit_cat['image_path'] ?? '') : ''; ?>">
+                <small style="display:block; margin-top:5px; color:#94a3b8;">Provide a path like <code>assets/images/your-image.jpg</code>. Leave blank to use FontAwesome icon.</small>
             </div>
             <button type="submit" name="<?php echo $edit_cat ? 'update_category' : 'add_category'; ?>" class="btn-admin btn-primary-admin" style="width:100%; justify-content:center;">
                 <i class="fa <?php echo $edit_cat ? 'fa-save' : 'fa-plus'; ?>"></i> <?php echo $edit_cat ? 'Update Category' : 'Add Category'; ?>

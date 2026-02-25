@@ -2,7 +2,15 @@
 <footer class="modern-footer">
     <div class="footer-container">
         <div class="footer-col">
-            <h3 class="footer-logo"> Melody Masters</h3>
+            <div class="footer-logo-premium">
+                <i class="fa fa-music"></i>
+                <div class="brand-text">
+                    <div class="brand-name">
+                        <span class="melody">Melody</span><span class="masters">Masters</span>
+                    </div>
+                    <span class="tagline">Excellence in Sound</span>
+                </div>
+            </div>
             <p>Your ultimate destination for premium musical instruments. We provide the best gear for musicians of all levels, carefully curated to inspire your sound.</p>
         </div>
         <div class="footer-col">

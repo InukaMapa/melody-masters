@@ -3,11 +3,22 @@ require_once "config/db.php";
 include "includes/header.php";
 
 // Filter by category or search query
-$category_name = isset($_GET['category']) ? $_GET['category'] : '';
-$search_query = isset($_GET['q']) ? $_GET['q'] : '';
-$title = "All Instruments";
+$category_name = isset($_GET['category']) ? trim($_GET['category']) : '';
+$search_query = isset($_GET['q']) ? trim($_GET['q']) : '';
+$title = "All Items";
 
-if ($search_query) {
+if ($search_query && $category_name) {
+    $search_term = "%$search_query%";
+    $stmt = $conn->prepare("SELECT p.*, c.name as category_name 
+                            FROM products p 
+                            LEFT JOIN categories c ON p.category_id = c.id 
+                            WHERE (p.name LIKE ? OR c.name LIKE ?) AND c.name = ?
+                            ORDER BY p.created_at DESC");
+    $stmt->bind_param("sss", $search_term, $search_term, $category_name);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $title = "Results for '" . htmlspecialchars($search_query) . "' in " . htmlspecialchars($category_name);
+} elseif ($search_query) {
     $search_term = "%$search_query%";
     $stmt = $conn->prepare("SELECT p.*, c.name as category_name 
                             FROM products p 

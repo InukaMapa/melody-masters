@@ -17,7 +17,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard | Melody Masters</title>
-    <link rel="stylesheet" href="assets/css/admin-style.css">
+    <link rel="stylesheet" href="assets/css/admin-style.css?v=1.5">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
@@ -26,8 +26,14 @@ $current_page = basename($_SERVER['PHP_SELF']);
 <div class="admin-layout">
     <!-- Sidebar -->
     <aside class="sidebar">
-        <div class="sidebar-logo">
-            MelodyMasters
+        <div class="sidebar-logo-premium">
+            <i class="fas fa-music"></i>
+            <div class="brand-text">
+                <div class="brand-name">
+                    <span class="melody">Melody</span><span class="masters">Masters</span>
+                </div>
+                <span class="tagline">Excellence in Sound</span>
+            </div>
         </div>
 
         <nav class="sidebar-menu">

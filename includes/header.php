@@ -9,7 +9,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Melody Masters | Premium Musical Instruments</title>
-    <link rel="stylesheet" href="/melody-masters/assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=3.9">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
@@ -30,19 +30,15 @@ if (session_status() === PHP_SESSION_NONE) {
         <div class="search-section">
             <form action="shop.php" method="GET" class="header-search-form">
                 <div class="search-wrapper">
-                    <i class="fa fa-search search-icon-left"></i>
                     <input type="text" name="q" placeholder="Search instruments, brands..." value="<?php echo htmlspecialchars($_GET['q'] ?? ''); ?>">
-                    <button type="submit" class="search-submit-btn">Search</button>
+                    <button type="submit" class="search-submit-btn">
+                        <i class="fa fa-search"></i>
+                    </button>
                 </div>
             </form>
         </div>
 
         <div class="header-actions">
-            <div class="contact-info-mini">
-                <i class="fa fa-phone-alt"></i>
-                <span>011 2595608</span>
-            </div>
-
             <div class="action-buttons">
                 <?php if(isset($_SESSION['user_id'])): ?>
                     <div class="user-dropdown">
@@ -72,9 +68,9 @@ if (session_status() === PHP_SESSION_NONE) {
                     <a href="register.php" class="btn-premium-sm">Join Now</a>
                 <?php endif; ?>
 
-                <a href="cart.php" class="cart-btn-premium">
+                <a href="cart.php" class="cart-btn-premium" title="View Cart">
                     <div class="cart-icon-wrapper">
-                        <i class="fa fa-shopping-basket"></i>
+                        <i class="fa fa-cart-shopping"></i>
                         <?php
                         $count = 0;
                         if (isset($_SESSION['cart'])) {
@@ -100,13 +96,12 @@ if (session_status() === PHP_SESSION_NONE) {
         <a href="shop.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'shop.php' ? 'active' : ''; ?>">
             <i class="fa fa-store"></i> SHOP
         </a>
-        <div class="nav-divider"></div>
-        <div class="trending-tags">
-            <span>Trending:</span>
-            <a href="shop.php?q=Guitar">Guitars</a>
-            <a href="shop.php?q=Piano">Pianos</a>
-            <a href="shop.php?q=Drums">Drums</a>
-        </div>
+        <a href="about.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'about.php' ? 'active' : ''; ?>">
+            <i class="fa fa-info-circle"></i> ABOUT US
+        </a>
+        <a href="contact.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : ''; ?>">
+            <i class="fa fa-envelope"></i> CONTACT
+        </a>
     </div>
 </nav>
 

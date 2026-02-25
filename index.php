@@ -27,42 +27,43 @@ $result = $conn->query($query);
         <h2 class="section-title">Shop by Category</h2>
     </div>
     <div class="category-grid">
-        <a href="shop.php?category=Guitar" class="category-item glass-card">
-            <div class="category-img-wrapper">
-                <i class="fa-solid fa-guitar"></i>
-            </div>
-            <p>Guitar</p>
-        </a>
-        <a href="shop.php?category=Drums" class="category-item glass-card">
-            <div class="category-img-wrapper">
-                <i class="fa-solid fa-drum"></i>
-            </div>
-            <p>Drums</p>
-        </a>
-        <a href="shop.php?category=Keyboards" class="category-item glass-card">
-            <div class="category-img-wrapper">
-                <i class="fa-solid fa-keyboard"></i>
-            </div>
-            <p>Keyboards</p>
-        </a>
-        <a href="shop.php?category=Wind & Brass" class="category-item glass-card">
-            <div class="category-img-wrapper">
-                <i class="fa-solid fa-trumpet"></i>
-            </div>
-            <p>Wind & Brass</p>
-        </a>
-        <a href="shop.php?category=Microphones" class="category-item glass-card">
-            <div class="category-img-wrapper">
-                <i class="fa-solid fa-microphone"></i>
-            </div>
-            <p>Microphones</p>
-        </a>
-        <a href="shop.php?category=Sheet Music PDFs" class="category-item glass-card">
-            <div class="category-img-wrapper">
-                <i class="fa-solid fa-file-pdf"></i>
-            </div>
-            <p>Sheet Music PDFs</p>
-        </a>
+        <?php 
+        $cat_query = $conn->query("SELECT * FROM categories ORDER BY name ASC");
+        if ($cat_query && $cat_query->num_rows > 0):
+            while($cat = $cat_query->fetch_assoc()):
+                $icon = htmlspecialchars($cat['icon_class'] ?: 'fa-music');
+                // Special case for Wind & Brass to ensure a nice icon if default is used
+                if ($cat['name'] == 'Wind & Brass' && $icon == 'fa-music') $icon = 'fa-trumpet';
+        ?>
+            <a href="shop.php?category=<?php echo urlencode($cat['name']); ?>" class="category-item glass-card">
+                <div class="category-img-wrapper">
+                    <?php if (!empty($cat['image_path'])): ?>
+                        <img src="<?php echo htmlspecialchars($cat['image_path']); ?>" alt="<?php echo htmlspecialchars($cat['name']); ?>">
+                        <i class="fa-solid <?php echo $icon; ?> overlay-icon"></i>
+                    <?php else: ?>
+                        <i class="fa-solid <?php echo $icon; ?>"></i>
+                    <?php endif; ?>
+                </div>
+                <p><?php echo htmlspecialchars($cat['name']); ?></p>
+            </a>
+        <?php 
+            endwhile;
+        else:
+        ?>
+            <!-- Fallback static categories if DB is empty -->
+            <a href="shop.php?category=Guitar" class="category-item glass-card">
+                <div class="category-img-wrapper"><i class="fa-solid fa-guitar"></i></div>
+                <p>Guitar</p>
+            </a>
+            <a href="shop.php?category=Drums" class="category-item glass-card">
+                <div class="category-img-wrapper"><i class="fa-solid fa-drum"></i></div>
+                <p>Drums</p>
+            </a>
+            <a href="shop.php?category=Wind & Brass" class="category-item glass-card">
+                <div class="category-img-wrapper"><i class="fa-solid fa-trumpet"></i></div>
+                <p>Wind & Brass</p>
+            </a>
+        <?php endif; ?>
     </div>
 </section>
 
